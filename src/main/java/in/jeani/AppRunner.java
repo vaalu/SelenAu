@@ -39,7 +39,7 @@ public class AppRunner implements CommandLineRunner {
 	}
 	private void testAll() {
 		tests.init(driver);
-		tests.test();
+		tests.testFromCsv();
 		exitDriver();
 	}
 

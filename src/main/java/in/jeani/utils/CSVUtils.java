@@ -35,7 +35,6 @@ public class CSVUtils {
 			int colIndex = 0;
 			IndividualTest test = null;
 			while((nextRecord = csvReader.readNext()) != null) {
-				LOGGER.info("Functionality check: " + nextRecord);
 				test = new IndividualTest();
 				for (String cell : nextRecord) {
 					if (index > 0) {
@@ -44,7 +43,6 @@ public class CSVUtils {
 							test.setName(cell);
 							break;
 						case 1:
-							LOGGER.info("Type: " + cell);
 							test.setType(cell);
 							break;
 						case 2:

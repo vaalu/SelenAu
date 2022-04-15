@@ -1,0 +1,7 @@
+SCREEN,TYPE,SELECTOR,ACTION,INPUT,EXPECTED RESULT,COMMENTS
+HOME,XPATH,/html/body/div[2]/div/div/button,CLICK,,,
+HOME,XPATH,/html/body/div/div/div[1]/div[1]/div[2]/div[1]/div/a[1]/img,,,,
+01ELECTRONICS_BTN,XPATH,//*[@id="container"]/div/div[2]/div/div/div[5]/a/div[2]/div/div,hover,,,
+02ELECTRONICS_HOVER,XPATH,//*[@id="container"]/div/div[2]/div/div/div[5]/a/div[2]/div[2]/div[2]/div/div/div[2]/a[2],hover,,,
+03ELECTRONICS_SPKRS,XPATH,//*[@id="container"]/div/div[2]/div/div/div[5]/a/div[2]/div[2]/div[2]/div/div/div[2]/a[2],click,,,
+04BLUETOOTH_SPKRS_LPAGE,XPATH,//*[@id="container"]/div/div[3]/div/div[2]/div[1]/div/div/h1,,,Headphones,Headphones Page

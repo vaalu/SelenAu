@@ -52,7 +52,8 @@ public class GenericTests extends ScreenTest {
 				if(test.getType() != null) {
 					test.setAssertionResult(true);
 					WebElement element = getWebElement(test);
-					if(test.getExpectedResult() != null) {
+					LOGGER.info("Expected result: " + test.getExpectedResult());
+					if(test.getExpectedResult() != null && !test.getExpectedResult().isBlank()) {
 						if(test.getExpectedResult().equalsIgnoreCase(element.getText())) {
 							LOGGER.debug(test.getExpectedResult() + " : PASSED");
 							test.setAssertionResult(true);
@@ -62,7 +63,7 @@ public class GenericTests extends ScreenTest {
 							test.setAssertionResult(false);
 						}
 					} else {
-						LOGGER.debug(test.getScreenItem() + " : PASSED");
+						LOGGER.debug(test.getName() + " : PASSED");
 						test.setAssertionResult(true);
 					}
 					if(test.getInputValue() != null) {
