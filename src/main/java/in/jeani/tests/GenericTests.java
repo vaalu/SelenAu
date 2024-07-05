@@ -43,28 +43,37 @@ public class GenericTests extends ScreenTest {
 		List<IndividualTest> tests = csvUtils.readInputCSVFile();
 		performTests(tests);
 	}
+	private IndividualTest getSuccessMessage(IndividualTest test) {
+		String message = String.format("%s : %s : PASSED : %s", test.getScreenItem(), test.getName(), test.getComment());
+		LOGGER.debug(message);
+		test.setActualResult(message);
+		test.setAssertionResult(true);
+		return test;
+	}
+	private IndividualTest getFailureMessage(IndividualTest test) {
+		String message = String.format("%s : %s : DID NOT QUALIFY : %s", test.getScreenItem(), test.getName(), test.getComment());
+		LOGGER.debug(message);
+		test.setActualResult(message);
+		test.setAssertionResult(false);
+		return test;
+	}
 	public void performTests(List<IndividualTest> tests) {
 		
 		for (IndividualTest test : tests) {
-			takeScreenshot(test.getName());
+			takeScreenshot(test.getScreenItem());
 			long timeStart = System.currentTimeMillis();
 			try {
 				if(test.getType() != null) {
 					test.setAssertionResult(true);
 					WebElement element = getWebElement(test);
-					LOGGER.info("Expected result: " + test.getExpectedResult());
 					if(test.getExpectedResult() != null && !test.getExpectedResult().isBlank()) {
 						if(test.getExpectedResult().equalsIgnoreCase(element.getText())) {
-							LOGGER.debug(test.getExpectedResult() + " : PASSED");
-							test.setAssertionResult(true);
+							getSuccessMessage(test);
 						} else {
-							LOGGER.debug(test.getExpectedResult() + " : DID NOT QUALIFY : " + test.getComment());
-							test.setActualResult(test.getExpectedResult() + " : DID NOT QUALIFY : " + test.getComment());
-							test.setAssertionResult(false);
+							getFailureMessage(test);
 						}
 					} else {
-						LOGGER.debug(test.getName() + " : PASSED");
-						test.setAssertionResult(true);
+						getSuccessMessage(test);
 					}
 					if(test.getInputValue() != null) {
 						useInput(element, test);
@@ -72,12 +81,10 @@ public class GenericTests extends ScreenTest {
 					if(test.getAction() != null) {
 						performAction(element, test);
 					}
-					takeScreenshot(test.getName());
+					takeScreenshot(test.getScreenItem());
 				}
 			} catch (Exception e) {
-				test.setAssertionResult(false);
-				LOGGER.debug(test.getScreenItem() + " : DID NOT QUALIFY : " + test.getComment());
-				test.setActualResult(test.getScreenItem() + " : DID NOT QUALIFY : " + test.getComment());
+				getFailureMessage(test);
 			}
 			long timeEnd = System.currentTimeMillis();
 			long totalDuration = timeEnd - timeStart;

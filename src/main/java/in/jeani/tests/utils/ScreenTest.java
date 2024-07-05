@@ -4,6 +4,7 @@
 package in.jeani.tests.utils;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -20,7 +21,7 @@ import in.jeani.utils.PropertiesUtil;
  */
 @Component
 public class ScreenTest extends AbstractTest {
-
+	
 	@Autowired
 	PropertiesUtil props;
 	
@@ -75,13 +76,23 @@ public class ScreenTest extends AbstractTest {
 	
 	public void performAction(WebElement element, IndividualTest test) {
 		if(test.getAction() != null) {
+			Actions actions = new Actions(getDriver());
 			if(test.getAction().equalsIgnoreCase("click" )) {
 				element.click();
 			}
 			else if(test.getAction().equalsIgnoreCase("hover" )) {
-				Actions actions = new Actions(getDriver());
 				actions.moveToElement(element).perform();
-			}
+			} 
+			else if(test.getAction().equalsIgnoreCase("scroll-top" )) {
+				System.out.println("scrolling to top");
+				((JavascriptExecutor) getDriver())
+				.executeScript("window.scrollTo(0, 0)");
+			} 
+			else if(test.getAction().equalsIgnoreCase("scroll-bottom" )) {
+				System.out.println("scrolling to top");
+				((JavascriptExecutor) getDriver())
+				.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+			} 
 		}
 	}
 	

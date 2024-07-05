@@ -27,6 +27,8 @@ public abstract class AbstractTest {
 	private WebDriver driver;
 	private String screenShotsDir = "/var";
 	
+	private static int ssCount = 0;
+	
 	public void init() {
 		screenShotsDir = props.getScreenshotsDir();
 		this.cleanUp();
@@ -44,19 +46,19 @@ public abstract class AbstractTest {
 	public void cleanUp() {
 		this.cleanUp(screenShotsDir);
 	}
-	
-	private int getNextCount(String dirPath) {
-		int ssCount = 0;
-		File f = new File(dirPath);
-		if(f.exists() && f.isDirectory()) {
-			ssCount = f.listFiles().length;
-		}
-		return ssCount;
+	private int getNextCount() {
+		return ssCount++;
 	}
+
+	/*
+	 * private int getNextCount(String dirPath) { int ssCount = 0; File f = new
+	 * File(dirPath); if(f.exists() && f.isDirectory()) { ssCount =
+	 * f.listFiles().length; } return ssCount; }
+	 */
 	private String getNextScreenshotPath(String dirPath, String name) {
-		int count = this.getNextCount(dirPath);
+		int count = this.getNextCount();
 		String formatted = String.format("%04d", count);
-		return dirPath + formatted + "_" + name + ".png";
+		return dirPath + "-" + formatted + "_" + name + ".png";
 	}
 	public void takeScreenshot(String name) {
 		File src = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);

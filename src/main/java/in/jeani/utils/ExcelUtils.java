@@ -53,22 +53,22 @@ private static final Logger LOGGER = LoggerFactory.getLogger(CSVUtils.class);
 						if (row.getRowNum() > 0) {
 							switch(cell.getColumnIndex()) {
 							case 0:
-								test.setName(cellValue);
+								test.setScreenItem(cellValue);
 								break;
 							case 1:
-								test.setType(cellValue);
+								test.setName(cellValue);
 								break;
 							case 2:
-								test.setScreenItem(cellValue);
+								test.setType(cellValue);
 								break;
 							case 3:
 								test.setSelector(cellValue);
 								break;
 							case 4:
-								test.setInputValue(cellValue);
+								test.setAction(cellValue);
 								break;
 							case 5:
-								test.setAction(cellValue);
+								test.setInputValue(cellValue);
 								break;
 							case 6:
 								test.setExpectedResult(cellValue);
